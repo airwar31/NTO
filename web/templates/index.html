@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroClassify Studio | Space AI Classifier (NTO)</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="theme-space">
+    <!-- Starfield Background -->
+    <div class="stars-layer"></div>
+    <div class="nebula-glow"></div>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand-group">
+                <div class="brand-icon">🌌</div>
+                <div>
+                    <h1 class="brand-title">AstroClassify <span class="badge-ai">AI Studio</span></h1>
+                    <p class="brand-subtitle">Space Object Classifier • National Technological Olympiad (NTO)</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span class="status-pill status-ready">● Models Ready</span>
+                <a href="https://github.com/airwar31/NTO" target="_blank" class="btn-github">
+                    <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Quick Stats Ribbon -->
+        <section class="stats-ribbon">
+            <div class="stat-card">
+                <span class="stat-label">Training Samples</span>
+                <span class="stat-value">45,000</span>
+                <span class="stat-meta">SDSS + Gaia Photometry</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Target Classes</span>
+                <span class="stat-value">6 Classes</span>
+                <span class="stat-meta">Stars, Galaxies, QSOs</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Benchmark Score</span>
+                <span class="stat-value highlight">0.892+ F1</span>
+                <span class="stat-meta">Macro-Averaged CV</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Active Architecture</span>
+                <span class="stat-value">CatBoost + MLP</span>
+                <span class="stat-meta">Balanced Soft-Voting</span>
+            </div>
+        </section>
+
+        <!-- Presets Bar -->
+        <section class="presets-section">
+            <span class="presets-title">⚡ Astronomical Presets:</span>
+            <div class="presets-grid" id="presets-container">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Main Workspace -->
+        <div class="workspace-grid">
+            <!-- Left: Feature Input Controls -->
+            <div class="panel glass-panel input-panel">
+                <div class="panel-header">
+                    <h2>🔭 Photometric & Astrometric Parameters</h2>
+                    <button id="btn-reset" class="btn-secondary btn-sm">↺ Reset</button>
+                </div>
+
+                <form id="classifier-form">
+                    <div class="form-group-title">Photometric Bands (SDSS Magnitudes)</div>
+                    <div class="grid-inputs">
+                        <div class="input-field">
+                            <label for="u_mag">u-band (Ultraviolet)</label>
+                            <input type="number" step="0.01" id="u_mag" name="u_mag" value="18.2">
+                        </div>
+                        <div class="input-field">
+                            <label for="g_mag">g-band (Green)</label>
+                            <input type="number" step="0.01" id="g_mag" name="g_mag" value="18.0">
+                        </div>
+                        <div class="input-field">
+                            <label for="r_mag">r-band (Red)</label>
+                            <input type="number" step="0.01" id="r_mag" name="r_mag" value="17.8">
+                        </div>
+                        <div class="input-field">
+                            <label for="i_mag">i-band (Infrared)</label>
+                            <input type="number" step="0.01" id="i_mag" name="i_mag" value="17.5">
+                        </div>
+                        <div class="input-field">
+                            <label for="z_mag">z-band (Near-IR)</label>
+                            <input type="number" step="0.01" id="z_mag" name="z_mag" value="17.2">
+                        </div>
+                    </div>
+
+                    <div class="form-group-title">Astrometry (Gaia Kinematics)</div>
+                    <div class="grid-inputs">
+                        <div class="input-field">
+                            <label for="parallax">Parallax (mas)</label>
+                            <input type="number" step="0.01" id="parallax" name="parallax" value="0.01">
+                        </div>
+                        <div class="input-field">
+                            <label for="pm_ra">Proper Motion RA (mas/yr)</label>
+                            <input type="number" step="0.01" id="pm_ra" name="pm_ra" value="0.05">
+                        </div>
+                        <div class="input-field">
+                            <label for="pm_dec">Proper Motion Dec (mas/yr)</label>
+                            <input type="number" step="0.01" id="pm_dec" name="pm_dec" value="-0.02">
+                        </div>
+                    </div>
+
+                    <div class="form-group-title">Spectral Emission Strengths</div>
+                    <div class="grid-inputs">
+                        <div class="input-field">
+                            <label for="h_alpha_strength">H-alpha (656.3 nm)</label>
+                            <input type="number" step="0.1" id="h_alpha_strength" name="h_alpha_strength" value="8.5">
+                        </div>
+                        <div class="input-field">
+                            <label for="oIII_strength">[O III] (500.7 nm)</label>
+                            <input type="number" step="0.1" id="oIII_strength" name="oIII_strength" value="9.2">
+                        </div>
+                        <div class="input-field">
+                            <label for="na_d_strength">Na D (589.0 nm)</label>
+                            <input type="number" step="0.1" id="na_d_strength" name="na_d_strength" value="1.2">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-classify" class="btn-primary btn-block">
+                        ✨ Classify Celestial Object
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Results & Spectrum Visualizer -->
+            <div class="panel glass-panel results-panel">
+                <div class="panel-header">
+                    <h2>🎯 AI Classification & Spectral Profile</h2>
+                    <span id="pred-badge" class="badge-result">Analyzing...</span>
+                </div>
+
+                <!-- Top Prediction Hero Card -->
+                <div class="top-result-card" id="top-card">
+                    <div class="top-result-icon" id="top-icon">🌠</div>
+                    <div class="top-result-info">
+                        <span class="top-class-title" id="top-title">Quasar (QSO)</span>
+                        <p class="top-class-desc" id="top-desc">Extremely luminous active galactic nucleus at high cosmological redshift.</p>
+                        <div class="confidence-bar-container">
+                            <div class="confidence-bar-fill" id="conf-bar" style="width: 85%;"></div>
+                        </div>
+                        <span class="confidence-label">Model Confidence: <strong id="conf-val">85.4%</strong></span>
+                    </div>
+                </div>
+
+                <!-- Probability Distribution -->
+                <div class="prob-section">
+                    <h3>Class Probability Distribution</h3>
+                    <div class="prob-list" id="prob-list">
+                        <!-- Injected via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Spectral Energy Distribution (SED) Curve Visualizer -->
+                <div class="chart-section">
+                    <h3>Photometric SED Curve (u, g, r, i, z)</h3>
+                    <div class="sed-chart-container">
+                        <svg id="sed-svg" viewBox="0 0 450 140" preserveAspectRatio="none">
+                            <polyline id="sed-line" points="40,90 120,80 200,60 280,45 360,30" fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+                            <circle id="p-u" cx="40" cy="90" r="5" fill="#a855f7"/>
+                            <circle id="p-g" cx="120" cy="80" r="5" fill="#3b82f6"/>
+                            <circle id="p-r" cx="200" cy="60" r="5" fill="#10b981"/>
+                            <circle id="p-i" cx="280" cy="45" r="5" fill="#f59e0b"/>
+                            <circle id="p-z" cx="360" cy="30" r="5" fill="#ef4444"/>
+                        </svg>
+                        <div class="sed-labels">
+                            <span>u (UV)</span>
+                            <span>g (Green)</span>
+                            <span>r (Red)</span>
+                            <span>i (NIR)</span>
+                            <span>z (IR)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Derived Features Summary -->
+                <div class="derived-features-box" id="derived-box">
+                    <div><span>(u - g):</span> <strong id="val-ug">0.200</strong></div>
+                    <div><span>(g - r):</span> <strong id="val-gr">0.200</strong></div>
+                    <div><span>(r - i):</span> <strong id="val-ri">0.300</strong></div>
+                    <div><span>Total PM:</span> <strong id="val-pm">0.054 mas/yr</strong></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <p>AstroClassify • National Technological Olympiad (NTO) AI Project • Developed by Danila (<a href="https://github.com/airwar31" target="_blank">airwar31</a>)</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# ==============================================================================
+# AstroClassify - National Technological Olympiad (NTO) AI Dependencies
+# ==============================================================================
+
+# Core Scientific & Data Processing
+numpy>=1.22.0
+pandas>=1.5.0
+scipy>=1.9.0
+
+# Machine Learning & Deep Learning
+scikit-learn>=1.2.0
+torch>=2.0.0
+catboost>=1.2.0
+
+# Interactive Web Visualizer Demo
+Flask>=2.3.0
+Werkzeug>=2.3.0
+Jinja2>=3.1.0
+
+# Visualization & Notebooks (Optional)
+matplotlib>=3.6.0
+seaborn>=0.12.0
